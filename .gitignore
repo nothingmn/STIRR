@@ -1,0 +1,28 @@
+# Obsidian workspace
+.obsidian/
+
+# Sync metadata
+.stfolder/
+.stversions/
+.sync/
+
+# OS files
+.Desktop.ini
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Backup files
+*.bak
+*.tmp
+*~
+
+# User content (the reference architecture should not include personal notes)
+# Adopters will add their own content after cloning
+
+# LAYOUT.md is per-vault, not part of the reference architecture
+# It gets generated during migration
+# LAYOUT.md
+
+# Remove-ai-layer scripts are intentionally included in the repo
+# They are part of the architecture (allowing users to opt out of AI governance)
