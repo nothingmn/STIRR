@@ -1,0 +1,46 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get version info
+        id: version
+        run: |
+          SHORT_SHA=$(git rev-parse --short HEAD)
+          TIMESTAMP=$(date -u +%Y%m%d-%H%M%S)
+          echo "sha=$SHORT_SHA" >> "$GITHUB_OUTPUT"
+          echo "timestamp=$TIMESTAMP" >> "$GITHUB_OUTPUT"
+          echo "tag=release-${TIMESTAMP}" >> "$GITHUB_OUTPUT"
+
+      - name: Build archive
+        run: |
+          mkdir -p dist
+          # Archive the vault, excluding .git and CI files
+          git archive --format=zip --prefix=STIRR/ HEAD -o dist/STIRR-${{ steps.version.outputs.timestamp }}.zip
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.tag }}
+          name: STIRR ${{ steps.version.outputs.timestamp }} (${{ steps.version.outputs.sha }})
+          body: |
+            Auto-built release from commit `${{ steps.version.outputs.sha }}` on `main`.
+
+            Download `STIRR-${{ steps.version.outputs.timestamp }}.zip` for the complete vault structure, ready to open in Obsidian.
+          files: dist/*.zip
+          draft: false
+          prerelease: false
