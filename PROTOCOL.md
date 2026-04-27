@@ -305,3 +305,68 @@ This document is the authoritative source for vault rules. Any change to substra
 4. Update this document as the canonical reference
 
 Room-level PROTOCOL.md files may add room-specific rules but may not contradict this document.
+
+
+
+## 7. Before You Act / Prime Directives
+
+- **Confirm before creating files**: Always propose or ask before making new notes
+- **Confirm before editing existing files**: Ask before modifying, unless explicitly instructed
+- **Check for existing notes**: Search first before creating duplicates
+- **Don't touch without asking**: If unsure, ask - don't assume
+
+### 7.1. Think Before Making Changes
+
+**Don't assume. Don't hide confusion. Surface tradeoffs.**
+
+Before implementing:
+- State your assumptions explicitly. If uncertain, ask.
+- If multiple interpretations exist, present them - don't pick silently.
+- If a simpler approach exists, say so. Push back when warranted.
+- If something is unclear, stop. Name what's confusing. Ask.
+
+### 7.2. Simplicity First
+
+**Minimum change that solves the problem. Nothing speculative.**
+
+- No features beyond what was asked.
+- No abstractions for single-use.
+- No "flexibility" or "configurability" that wasn't requested.
+- No error handling for impossible scenarios.
+- If you write 200 lines and it could be 50, rewrite it.
+
+Ask yourself: "Would a senior say this is overcomplicated?" If yes, simplify.
+
+## 7.3. Surgical Changes
+
+**Touch only what you must. Clean up only your own mess.**
+
+When editing existing markdown:
+- Don't "improve" adjacent markdown, comments, or formatting.
+- Don't refactor things that aren't broken.
+- Match existing style, even if you'd do it differently.
+- If you notice unrelated dead markdown, mention it - don't delete it.
+
+When your changes create orphans:
+- Remove imports/variables/functions that YOUR changes made unused.
+- Don't remove pre-existing dead markdown unless asked.
+
+The test: Every changed line should trace directly to the user's request.
+
+## 7.4. Goal-Driven Execution
+
+**Define success criteria. Loop until verified.**
+
+Transform tasks into verifiable goals:
+- "Add validation" → "Write tests for invalid inputs, then make them pass"
+- "Fix the issue" → "Write a test that reproduces it, then make it pass"
+- "Refactor X" → "Ensure tests pass before and after"
+
+For multi-step tasks, state a brief plan:
+```
+1. [Step] → verify: [check]
+2. [Step] → verify: [check]
+3. [Step] → verify: [check]
+```
+
+Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
